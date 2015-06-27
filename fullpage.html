@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="Description...">
     <meta name="keywords" content="keyword1,keyword2,keyword3..">
-    <meta name="author" content="chriswang,396276123@qq.com">
+    <meta name="author" content="rusherwang,396276123@qq.com">
 
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <style type="text/css">
+    html {
+    -ms-touch-action: none;  /* 阻止windows Phone 的默认触摸事件 */
+    }
     body,
     div,
     p {
@@ -27,6 +30,8 @@
     }
     #pageContain {
     	overflow: hidden;
+        perspective: 500;
+        -webkit-perspective: 500;
     }
     .page {
     	display: none;
@@ -98,6 +103,42 @@
         width: 40px;
         height: 40px;
     }
+
+
+
+    p {
+        width: 200px;
+        height: 100px;
+        color:#fff;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -100px;
+        margin-top: -50px;
+        opacity: 1;
+        transition: all .8s ease;
+        transform-origin: 50% 50%;
+    }
+    .step1 p {
+        transform: translate(0, -50px);
+        -webkit-transform: translate(0, -50px);
+    }
+    .step2 p {
+        opacity: 0;
+        transform: scale(2);
+        -webkit-transform: scale(2);
+    }
+    .step3 p {
+        transform: scale(1);
+        -webkit-transform: scale(1)
+        opacity: 1;
+    }
+    .step4 p {
+        -webkit-transform: rotate(360deg) translate(0,-200px) scale(.3);
+        transform: rotate(360deg) translate(0,-200px) scale(.3);
+        opacity: 0;
+    }
     </style>
 </head>
 <!--[if lte IE 7]>      
@@ -122,7 +163,7 @@
 
 		<div class="page page3">
 			<div class="contain">
-				
+				<p class="demo-data-step">data-step可以让你在不切屏的情况下更换动画</p>
 			</div>
 		</div>
 
@@ -153,7 +194,7 @@
 		<li>5</li>
 	</ul>
 
-<script type="text/javascript" src="js/fullPage.min.js"></script>
+<script type="text/javascript" src="js/fullPage.js"></script>
 <script type="text/javascript">
 	
 var runPage;
@@ -162,19 +203,26 @@ runPage = new FullPage({
 
 	id : 'pageContain',                            // id of contain
 	slideTime : 800,                               // time of slide
-    effect : {                                     // slide effect
-        transform : {
-        	translate : 'Y',					   // 'X'|'Y'|'XY'|'none'
-        	scale : [.1, 1],					   // [scalefrom, scaleto]
-        	rotate : [270, 0]					   // [rotatefrom, rotateto]
-        },
-        opacity : [0, 1]                           // [opacityfrom, opacityto]
-    },                           
+	continuous : false,                            // create an infinite feel with no endpoints
+	effect : {                                     // slide effect
+        	transform : {
+        		translate : 'Y',				   // 'X'|'Y'|'XY'|'none'
+        		scale : [.5, 1],				   // [scalefrom, scaleto]
+        		rotate : [30, 0]				       // [rotatefrom, rotateto]
+        	},
+        	opacity : [0, 1]                       // [opacityfrom, opacityto]
+    	},                           
 	mode : 'wheel,touch,nav:navBar',               // mode of fullpage
-	easing : 'ease'                                // easing('ease','ease-in','ease-in-out' or use cubic-bezier like [.33, 1.81, 1, 1] )
-    //  callback : function(index, thisPage) {     // callback when pageChange
-        
+	easing : 'ease'                                // easing('ease','ease-in','ease-in-out' or use cubic-bezier like [.33, 1.81, 1, 1];
+    //  ,onSwipeStart : function(index, thisPage) {   // callback before pageChange
+    //    return 'stop';
     //  }
+    //  ,beforeChange : function(index, thisPage) {   // callback before pageChange
+    //    return 'stop';
+    //  }
+    //  ,callback : function(index, thisPage) {       // callback when pageChange
+    //    alert(index);
+    //  };
 });
 
 </script>
